@@ -1,4 +1,3 @@
-import java.io.File
 import java.util.Date
 
 import akka.actor.ActorSystem
@@ -35,17 +34,17 @@ object WebServer extends Configuration {
 }
 
 object Configuration {
-  val env = System.getenv("ENV")
+  private val env = System.getenv("ENV")
 
-  val config = env match {
+  val config: Config = env match {
     case null => ConfigFactory.load()
     case _ => ConfigFactory.load(env)
   }
 }
 
 trait Configuration {
-  def config = Configuration.config
+  private def config = Configuration.config
 
-  lazy val secret = config.getString("my.secret.value")
-  lazy val serverPort = config.getString("server.port")
+  lazy val secret: String = config.getString("my.secret.value")
+  lazy val serverPort: String = config.getString("server.port")
 }
