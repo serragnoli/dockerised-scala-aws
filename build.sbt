@@ -14,9 +14,12 @@ dockerfile in docker := {
   val artifactTargetPath = s"/app/${artifact.name}"
 
   new Dockerfile {
-    from("java")
+    from("openjdk:8-jre-alpine")
+
     add(artifact, artifactTargetPath)
+
     expose(8080)
+
     entryPoint("java", "-jar", artifactTargetPath)
   }
 }
